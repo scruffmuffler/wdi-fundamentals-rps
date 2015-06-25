@@ -46,13 +46,13 @@ function getWinner(playerMove,computerMove) {
     // scissors beats paper
     // use the playerMove and computerMove functions to determine winner
     
-     
+    //rock 
     if (playerMove === 'rock') {
         if (computerMove === 'scissors') {
             winner = 'player';
         }   else if (computerMove === 'paper') {
             winner = 'computer';
-        }   else if (computerMove === playerMove) { 
+        }   else { 
             winner = 'tie'; 
         }
     //paper
@@ -61,7 +61,7 @@ function getWinner(playerMove,computerMove) {
             winner = 'computer';
         }   else if (computerMove === 'paper') {
             winner = 'tie';
-        }   else if (playerMove === 'rock') {
+        }   else {
             winner = 'player';
         }
 
@@ -71,10 +71,16 @@ function getWinner(playerMove,computerMove) {
             winner = 'tie';
         }   else if (computerMove === 'rock') {
             winner = 'computer';
-        }   else if (computerMove === 'paper') {
+        }   else {
             winner = 'player';
         }
+    } else if (playerMove === 'exit') {
+        return;
     }
+    
+    
+
+    console.log('Player chose ' + playerMove + ' and computer chose ' + computerMove)
     return winner;
 }
 
@@ -91,21 +97,21 @@ function playTo(x) {
         }   else if (winner === 'computer') {
             computerWins++;
             console.log('Computer won!');
-        }   else if (winner === 'tie') {
+        }   else {
             console.log('The result is a tie!');
         }
-        console.log('Player chose ' + getPlayerMove() + ' while Computer chose ' + getComputerMove() + '\n' + 'The score is currently ' + playerWins + ' to ' + computerWins);
+        console.log('Player chose ' + getPlayerMove() + ' while Computer chose ' + getComputerMove());
+        console.log('The score is currently ' + playerWins + ' to ' + computerWins + '\n');get
     }
 
     // Write code that plays 'Rock, Paper, Scissors' until either the player or the computer has won five times.
     /* YOUR CODE HERE */
-    if (playerWins === x) {
+    if (playerWins > ComputerWins) {
         console.log('Player wins the set!');
-    } else if (computerWins === x) {
+    } else {
         console.log('Computer wins the set');
     }
     return [playerWins, computerWins];
     
 }
 
-playTo(3);
