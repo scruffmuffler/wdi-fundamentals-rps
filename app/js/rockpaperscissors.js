@@ -36,7 +36,6 @@ function getComputerMove(move) {
 }
 
 function getWinner(playerMove,computerMove) {
-    var winner = null;
     // Write code that will set winner to either 'player', 'computer', or 'tie' based on the values of playerMove and computerMove.
     // Assume that the only values playerMove and computerMove can have are 'rock', 'paper', and 'scissors'.
     // The rules of the game are that 'rock' beats 'scissors', 'scissors' beats 'paper', and 'paper' beats 'rock'.
@@ -46,36 +45,18 @@ function getWinner(playerMove,computerMove) {
     // scissors beats paper
     // use the playerMove and computerMove functions to determine winner
     
-     
-    if (playerMove === 'rock') {
-        if (computerMove === 'scissors') {
-            winner = 'player';
-        }   else if (computerMove === 'paper') {
-            winner = 'computer';
-        }   else if (computerMove === playerMove) { 
-            winner = 'tie'; 
-        }
-    //paper
-    } else if (playerMove === 'paper') {
-        if (computerMove === 'scissors') {
-            winner = 'computer';
-        }   else if (computerMove === 'paper') {
-            winner = 'tie';
-        }   else if (playerMove === 'rock') {
-            winner = 'player';
-        }
+    if (playerMove == computerMove) {
+       return 'tie';
+    } else if ((playerMove == 'rock' && computerMove == 'scissors') ||
+                (playerMove == 'scissors' && computerMove =='paper') || 
+                (playerMove == 'paper' && computerMove == 'rock')) 
+        {
+            return 'player';
 
-    // scissors
-    } else if (playerMove === 'scissors') {
-        if (computerMove === 'scissors') {
-            winner = 'tie';
-        }   else if (computerMove === 'rock') {
-            winner = 'computer';
-        }   else if (computerMove === 'paper') {
-            winner = 'player';
-        }
-    }
-    return winner;
+    } else {
+        return 'computer';
+    } 
+      
 }
 
 
@@ -83,29 +64,29 @@ function playTo(x) {
     console.log("Let's play Rock, Paper, Scissors");
     var playerWins = 0;
     var computerWins = 0;
+    var winner = null;
     while (playerWins < x && computerWins < x) {
-        winner = getWinner(getPlayerMove(), getComputerMove());
-        if (winner === 'player') {
+        var playerMove = getPlayerMove();
+        var computerMove = getComputerMove();
+        winner = getWinner(playerMove, computerMove);
+        if (winner == 'player') {
             playerWins++;
-            console.log('Player won!');
-        }   else if (winner === 'computer') {
+        }   else if (winner == 'computer') {
             computerWins++;
-            console.log('Computer won!');
-        }   else if (winner === 'tie') {
-            console.log('The result is a tie!');
         }
-        console.log('Player chose ' + getPlayerMove() + ' while Computer chose ' + getComputerMove() + '\n' + 'The score is currently ' + playerWins + ' to ' + computerWins);
+        console.log("Player chose " + playerMove + " while Computer chose " + computerMove);
+        console.log("The score is currently " + playerWins + " to " + computerWins + "\n");
     }
 
     // Write code that plays 'Rock, Paper, Scissors' until either the player or the computer has won five times.
     /* YOUR CODE HERE */
-    if (playerWins === x) {
-        console.log('Player wins the set!');
-    } else if (computerWins === x) {
-        console.log('Computer wins the set');
-    }
     return [playerWins, computerWins];
     
 }
 
-playTo(3);
+/*  What if the computer could learn the player's moves? 
+    The computer could track which option ('rock', 'paper', or 'scissors') is chosen. 
+    The computer then decides which option is most commonly chosen by the player. 
+    Based on this information, the computer more often than not chooses the superior option. 
+    i.e. ('rock' correlates 'paper', 'paper' correlates 'scissors', and 'scissors' correlates 'rock')
+    The computer incorporates a random factor into this decision, to match the arbitrary choices the player could make. 
