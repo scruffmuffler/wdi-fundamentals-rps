@@ -3,11 +3,80 @@
 ////////////////////////////////////////////////
 // 'use strict';
 
+var rockCount = 0;
+var scissorsCount = 0; 
+var paperCount = 0;
+var totalMoves = null;
+
+var playerMove = null;
+var computerMove = null;
+
+var rProb = 0.33;
+var pProb = 0.66;
+
 function getInput() {
     console.log("Please choose either 'rock', 'paper', or 'scissors'.");
     return prompt();
 }
+
+/* function mostCommonPlay() {
+    var largest = rockCount;
+    var second = rockCount;
+    var third = rockCount;
+    var mostCommon = 'rock';
+
+    if (paperCount > largest) {
+        third = second;
+        second = largest;
+        largest= paperCount;
+        mostCommon = 'paper';
+    } else if (scissorsCount > largest) {
+        third = second;
+        second = largest;
+        largest = scissorsCount;
+        mostCommon = 'scissors'
+    }
+    return mostCommon;
+} */
+
+// need function to play opposite of player's move to win
+// getStrategy()?????
+// need to inverse move
+
+function getProbability() {
+    count();
+    totalMoves = (rockCount + paperCount + scissorsCount);
+    var probs = [];
+    rProb = scissorsCount / totalMoves;
+    pProb = rProb + (rockCount / totalMoves);
+    
+    
+    console.log([rProb, rockCount / totalMoves, 1 - rProb - pProb]);
+}
+    
+
+function count() {
+    if (playerMove == 'rock') {
+        rockCount += 1;
+    } else if (playerMove == 'paper') {
+        paperCount += 1;
+    } else if (playerMove == 'scissors') {
+        scissorsCount += 1;
+    }    
+}
+
 function randomPlay() {
+    var randomNumber = Math.random();
+    if (randomNumber < rProb ) {
+        return 'rock';
+    } else if (randomNumber < pProb) {
+        return 'paper';
+    } else {
+        return 'scissors';
+    }
+ }
+
+/* function randomPlay() {
     var randomNumber = Math.random();
     if (randomNumber < 0.33) {
         return "rock";
@@ -16,7 +85,7 @@ function randomPlay() {
     } else {
         return "scissors";
     }
-}
+} */
 ////////////////////////////////////////////////
 /*           Write Your Code Below            */
 ////////////////////////////////////////////////
@@ -66,8 +135,10 @@ function playTo(x) {
     var computerWins = 0;
     var winner = null;
     while (playerWins < x && computerWins < x) {
-        var playerMove = getPlayerMove();
-        var computerMove = getComputerMove();
+        getProbability();
+        playerMove = getPlayerMove();
+        computerMove = getComputerMove();
+        count();
         winner = getWinner(playerMove, computerMove);
         if (winner == 'player') {
             playerWins++;
@@ -89,4 +160,4 @@ function playTo(x) {
     The computer then decides which option is most commonly chosen by the player. 
     Based on this information, the computer more often than not chooses the superior option. 
     i.e. ('rock' correlates 'paper', 'paper' correlates 'scissors', and 'scissors' correlates 'rock')
-    The computer incorporates a random factor into this decision, to match the arbitrary choices the player could make. 
+    The computer incorporates a random factor into this decision, to match the arbitrary choices the player could make. */
