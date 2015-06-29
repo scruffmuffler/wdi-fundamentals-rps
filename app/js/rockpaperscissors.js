@@ -1,8 +1,3 @@
-////////////////////////////////////////////////
-/*   Provided Code - Please Don't Edit   */
-////////////////////////////////////////////////
-// 'use strict';
-
 var rockCount = 0;
 var scissorsCount = 0; 
 var paperCount = 0;
@@ -24,7 +19,6 @@ function getInput() {
     var second = rockCount;
     var third = rockCount;
     var mostCommon = 'rock';
-
     if (paperCount > largest) {
         third = second;
         second = largest;
@@ -51,7 +45,7 @@ function getProbability() {
     pProb = rProb + (rockCount / totalMoves);
     
     
-    console.log([rProb, rockCount / totalMoves, (1 - (rProb + pProb))]);
+    console.log([rProb, rockCount / totalMoves, paperCount / totalMoves]);
 }
     
 
@@ -65,7 +59,7 @@ function count() {
     }    
 }
 
-function randomPlay() {
+function aiRandomPlay() {
     var randomNumber = Math.random();
     if (randomNumber < rProb ) {
         return 'rock';
@@ -76,7 +70,7 @@ function randomPlay() {
     }
  }
 
-/* function randomPlay() {
+function randomPlay() {
     var randomNumber = Math.random();
     if (randomNumber < 0.33) {
         return "rock";
@@ -85,7 +79,7 @@ function randomPlay() {
     } else {
         return "scissors";
     }
-} */
+}
 ////////////////////////////////////////////////
 /*           Write Your Code Below            */
 ////////////////////////////////////////////////
@@ -101,7 +95,7 @@ function getComputerMove(move) {
     // Write an expression that operates on a variable called `move`
     // If a `move` has a value, your expression should evaluate to that value.
     // However, if `move` is not specified / is null, your expression should equal `randomPlay()`.
-    return move || randomPlay();
+    return move || aiRandomPlay();
 }
 
 function getWinner(playerMove,computerMove) {
@@ -154,10 +148,3 @@ function playTo(x) {
     return [playerWins, computerWins];
     
 }
-
-/*  What if the computer could learn the player's moves? 
-    The computer could track which option ('rock', 'paper', or 'scissors') is chosen. 
-    The computer then decides which option is most commonly chosen by the player. 
-    Based on this information, the computer more often than not chooses the superior option. 
-    i.e. ('rock' correlates 'paper', 'paper' correlates 'scissors', and 'scissors' correlates 'rock')
-    The computer incorporates a random factor into this decision, to match the arbitrary choices the player could make. */
