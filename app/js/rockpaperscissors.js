@@ -51,7 +51,7 @@ function getProbability() {
     pProb = rProb + (rockCount / totalMoves);
     
     
-    console.log([rProb, rockCount / totalMoves, 1 - rProb - pProb]);
+    console.log([rProb, rockCount / totalMoves, (1 - (rProb + pProb))]);
 }
     
 
